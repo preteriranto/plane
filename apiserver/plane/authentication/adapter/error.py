@@ -37,9 +37,11 @@ AUTHENTICATION_ERROR_CODES = {
     "GOOGLE_NOT_CONFIGURED": 5105,
     "GITHUB_NOT_CONFIGURED": 5110,
     "GITLAB_NOT_CONFIGURED": 5111,
+    "OIDC_NOT_CONFIGURED": 5112,
     "GOOGLE_OAUTH_PROVIDER_ERROR": 5115,
     "GITHUB_OAUTH_PROVIDER_ERROR": 5120,
     "GITLAB_OAUTH_PROVIDER_ERROR": 5121,
+    "OIDC_OAUTH_PROVIDER_ERROR": 5122,
     # Reset Password
     "INVALID_PASSWORD_TOKEN": 5125,
     "EXPIRED_PASSWORD_TOKEN": 5130,
@@ -67,6 +69,7 @@ AUTHENTICATION_ERROR_CODES = {
 
 
 class AuthenticationException(Exception):
+
     error_code = None
     error_message = None
     payload = {}
@@ -77,7 +80,10 @@ class AuthenticationException(Exception):
         self.payload = payload
 
     def get_error_dict(self):
-        error = {"error_code": self.error_code, "error_message": self.error_message}
+        error = {
+            "error_code": self.error_code,
+            "error_message": self.error_message,
+        }
         for key in self.payload:
             error[key] = self.payload[key]
 
