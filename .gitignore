@@ -92,3 +92,5 @@ dev-editor
 # Redis
 *.rdb
 *.rdb.gz
+
+.dev/
